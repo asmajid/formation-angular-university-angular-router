@@ -7,6 +7,7 @@ import { LessonDetailComponent } from './lesson/lesson-detail.component';
 import { LessonsListComponent } from './lessons-list/lessons-list.component';
 import { LessonsResolver } from './services/lessons.resolver';
 import { LessonDetailResolver } from './services/lesson-detail.resorver';
+import { AuthGuard } from '../services/auth.guard.service';
 
 
 const routes: Routes = [
@@ -49,7 +50,8 @@ const routes: Routes = [
   providers: [
     CourseResolver,
     LessonsResolver,
-    LessonDetailResolver
+    LessonDetailResolver,
+    AuthGuard
 
   ]
 })
