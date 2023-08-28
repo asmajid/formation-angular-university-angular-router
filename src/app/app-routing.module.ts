@@ -1,8 +1,10 @@
 import {Component, NgModule} from '@angular/core';
-import {Routes, RouterModule, PreloadAllModules} from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules, UrlSerializer } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AboutComponent } from './about/about.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ChatComponent } from './chat/chat.component';
+import { error } from 'console';
 
 
 const routes: Routes = [
@@ -24,6 +26,11 @@ const routes: Routes = [
     component: AboutComponent
   },
   {
+    path: 'helpdesk-chat',
+    component: ChatComponent,
+    outlet: 'chat'
+  },
+  {
     path: "**",
     component: PageNotFoundComponent
   }
@@ -32,7 +39,14 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes, {
+      scrollPositionRestoration: 'enabled',
+      paramsInheritanceStrategy: 'always',
+      relativeLinkResolution: 'corrected',
+      malformedUriErrorHandler:
+        (error: URIError, urlSerializer: UrlSerializer, url: string) =>
+        urlSerializer.parse("/page-not-found")
+    })
 
   ],
   exports: [RouterModule],
